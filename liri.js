@@ -1,11 +1,13 @@
-// API Key & call for spotify
+// Key & Call for spotify
 require("dotenv").config();
 var keys = require("./key");
 var Spotify = require('node-spotify-api');
-// API call for omdb/bands in town
+// Call for omdb/bands in town
 var request = require("request");
-// API call for moment.js
+// Call for moment.js
 var moment = require('moment');
+// Call for Filesystem
+var fs = require("fs");
 
 
 var spotify = new Spotify(keys.spotify);
@@ -14,14 +16,14 @@ var search = process.argv[3];
 
 switch(input){
   case "spotify-this-song":
+    if (search == undefined){
+      var search = "The Sign";
+    }
     spotify.search({ type: 'track', query: search, limit: 1  }, function(err, data) {
       if (err) {
         return console.log('Error occurred: ' + err);
       }
-      if (search === ""){
-        search = "The Sign";
-      }
-        console.log(JSON.stringify("Artist Name: " + data.tracks.items[0].album.artists[0].name)); 
+    console.log(JSON.stringify("Artist Name: " + data.tracks.items[0].album.artists[0].name)); 
     console.log(JSON.stringify("Song Name: " + data.tracks.items[0].name)); 
     console.log(JSON.stringify("Album Name: " + data.tracks.items[0].album.name)); 
     console.log(JSON.stringify("Song Preview: " + data.tracks.items[0].preview_url)); 
@@ -38,7 +40,10 @@ switch(input){
       console.log("Date: " + moment(JSON.parse(body)[0].datetime).format('MMMM Do YYYY, h:mm a'));
     })
   break;
-  case "movie-this": 
+  case "movie-this":
+    if (search === undefined){
+      var search = "Mr. Nobody";
+    }
     var url = 'http://www.omdbapi.com/?t=' + search +'&apikey=trilogy&y=&plot=long&tomatoes=true&r=json';
     request(url, function(err, response ,body){
       if(err){
@@ -53,4 +58,22 @@ switch(input){
       console.log("Actors: " + JSON.parse(body)["Actors"]);
       console.log("Rotten Tomatoes Rating: " + JSON.parse(body)["tomatoRating"]);
       });
+  case "do-what-it-says":
+      fs.readFile("random.txt", "utf-8", function(err, data){
+        if (err){
+          return console.log(err);
+        }
+        var dataArr = data.split(",");
+        var input = dataArr[0];
+        var search = dataArr[1];
+      
+        function random (input, search){
+          if(input === dataArr[0] && search === dataArr[1]){
+            
+          }
+        }
+
+        random();
+      })
+  break;
 }

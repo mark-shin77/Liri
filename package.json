@@ -4,9 +4,11 @@
   "description": "",
   "main": "liri.js",
   "dependencies": {
+    "bandsintown": "^1.0.1",
     "dotenv": "^6.1.0",
     "moment": "^2.22.2",
-    "node-spotify-api": "^1.0.7"
+    "node-spotify-api": "^1.0.7",
+    "omdb": "^0.8.0"
   },
   "devDependencies": {},
   "scripts": {

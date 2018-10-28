@@ -1,4 +1,4 @@
-# Liri Node.js Application!
+# Liri - The Node.js Application!
 ### Requirements
 
 - Make a Node.js app which outputs information depending on user input from the command line.

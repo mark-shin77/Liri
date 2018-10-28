@@ -13,6 +13,7 @@ var spotify = new Spotify(keys.spotify);
 // User input
 var input = process.argv[2];
 var search = process.argv[3];
+search == undefined ? search == "undefined" : search.toString().trim();
 
 function liri (){
   switch(input){
@@ -121,14 +122,23 @@ function textfile (){
 
 // Bonus Logging info to log.txt
 function keepTrack (){
-  fs.appendFile("log.txt", search + ',', function(err, data){
-    if (err){
-      return console.log(err);
-    }
-    console.log("=======================");
-    console.log("Search has been logged!");
-    console.log("=======================");
-  });
+  if (search == undefined || search == "undefined"){
+    return console.log("No search term has been entered!")
+    process.exit();
+  }
+  else{
+    fs.appendFile("log.txt", search + ',', function(err, data){
+      
+      if (err){
+        return console.log(err);
+      }
+      else {
+        console.log("=======================");
+        console.log("Search has been logged!");
+        console.log("=======================");
+      }
+    })
+  };
   fs.readFile("log.txt", "utf8", function(err, data){
     // Logging Error if something goes wrong
     if (err){

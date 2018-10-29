@@ -13,8 +13,8 @@ var spotify = new Spotify(keys.spotify);
 // User input
 var input = process.argv[2];
 var search = process.argv[3];
-search == undefined ? search == "undefined" : search.toString().trim();
 
+// Switch function for liri to take in our 4 commands
 function liri (){
   switch(input){
     case "spotify-this-song":
@@ -30,8 +30,7 @@ function liri (){
       keepTrack();
     break;
     case "do-what-it-says":
-      textfile();
-      keepTrack();
+      textfile();;
     break;
   }
 }
@@ -122,17 +121,20 @@ function textfile (){
 
 // Bonus Logging info to log.txt
 function keepTrack (){
+  // If statement to not log anything if no parameters are stated
   if (search == undefined || search == "undefined"){
-    return console.log("No search term has been entered!")
+    return console.log("No search term was entered!")
     process.exit();
   }
   else{
+    // Logs searchs to log.txt file
     fs.appendFile("log.txt", search + ',', function(err, data){
-      
+      // Logging error is something goes wrong
       if (err){
         return console.log(err);
       }
       else {
+        // Notify user that search has been logged.
         console.log("=======================");
         console.log("Search has been logged!");
         console.log("=======================");
@@ -146,8 +148,16 @@ function keepTrack (){
     }
     // Making Text File Into an Array 
     var dataArr = data.split(',');
+    // Shows users what has been searched and is logged in our log.txt file
     console.log(dataArr);
   });
 };
 
-liri();
+// Running Liri
+if (input != "do-what-it-says"){
+  liri();
+}
+else{
+  console.log("Getting commands from random.txt. Please wait .. ")
+  textfile();
+}

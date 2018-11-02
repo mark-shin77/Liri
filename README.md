@@ -10,7 +10,7 @@
 - Read commands and queries from random.txt file
 
 ### Bonus
-- Log commands and queries searched into log.txt file
+- Log queries searched into log.txt file
 
 ### Technologies Used
 
